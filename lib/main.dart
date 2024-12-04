@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:indiair/airPage.dart';
+import 'package:indiair/screens/airPage.dart';
+import 'package:indiair/screens/searchPage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());

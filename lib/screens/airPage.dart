@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indiair/screens/searchPage.dart';
 
 class Airpage extends StatefulWidget {
   const Airpage({super.key});
@@ -139,7 +140,7 @@ class _AirpageState extends State<Airpage> {
                             day: "Cum",
                             minTemp: "%10"
                           ),
-                          Divider(),
+                           Divider(),
                           WeatherDayWidget(
                             day: "Cmt",
                             minTemp: "%6"
@@ -151,12 +152,52 @@ class _AirpageState extends State<Airpage> {
                 ),
               ),
             ),
+            
+            // Butonlar için Row
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Sayfaya ait buton
+                  ElevatedButton(
+                    onPressed: () {
+                      // Buraya bir işlem ekleyebilirsiniz, örneğin sayfa yeniden yükleme veya başka bir işlem
+                    },
+                    child: const Text('Bu Sayfa'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, // Butonun rengi
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      textStyle: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  
+                  // Arama butonu
+                  ElevatedButton(
+                    onPressed: () {
+                      // SearchPage'e yönlendirme
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  SearchPage()),
+                      );
+                    },
+                    child: const Text('Arama'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red, // Butonun rengi
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      textStyle: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
 
 class WeatherDayWidget extends StatelessWidget {
   final String day;
