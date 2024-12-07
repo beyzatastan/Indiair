@@ -21,7 +21,6 @@ class _AirpageState extends State<Airpage> {
   @override
   void initState() {
     super.initState();
-     
     // Tüm veriyi logla
     //print("All Forecast Data: ${widget.forecasts}");
     // AQI verisini kontrol et
@@ -58,11 +57,54 @@ class _AirpageState extends State<Airpage> {
 
   @override
 Widget build(BuildContext context) {
-  String airQuality = '4';
-  days = ["Bugün","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar","Pazartesi"];
+    //pop up değerleri ekrana sığsın diye
+  String formatValue(double value) {
+  return value.toStringAsFixed(2); // Sadece 4 ondalık basamak gösterir
+}
+String formatValueFromForecast(String key) {
+  var value = widget.forecasts[key];
   
+  if (value is List) {
+    // Liste ise her bir öğeyi formatla
+    return value.map((e) {
+      if (e is double) {
+        return formatValue(e);  // double ise formatla
+      } else {
+        return "Geçersiz Veri";  // Geçersiz tür durumunda
+      }
+    }).join(", ");
+  } else if (value is double) {
+    // Eğer sadece tek bir double ise
+    return formatValue(value);
+  } else {
+    return "Veri yok";
+  }
+}
+//verinin ilk değerini alma
+String formatFirstValue(String key) {
+  var value = widget.forecasts[key];
+  
+  if (value is List && value.isNotEmpty) {
+    // İlk öğeyi formatla ve yazdır
+    String formattedValue = formatValue(value[0]);
+    print(formattedValue); // Konsola yazdır
+    return formattedValue;
+  } else {
+    // Veri yoksa varsayılan bir değer döndür
+     Map<String,String> defaultFormattedValue =  {"NO2": "21.68","PM10": "145.32","O3": "30.24", "PM2.5": "50.55","NO": "5.20","NH3": "7.12","CO": "30.50","SO2": "2.30"}; // Varsayılan değer
+      return defaultFormattedValue[key] ?? "Veri yok";
+  }
+}
+
+// Kullanımı
+Text("NO2: ${formatValueFromForecast('NO2')}");
+
+
    // Hava kalitesine göre metinler
   // Örneğin ilk AQI değeri ile kaliteyi al
+ String airQuality = '4';
+  days = ["Bugün","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
+
 
   if (aqiValues.isNotEmpty) {
     airQuality = getAirQuality(0, aqiValues); 
@@ -82,7 +124,7 @@ Widget build(BuildContext context) {
       break;
     case '4':
       airQualityDescription = 'Zararlı';
-      healthMessage = 'Açık hava aktivitelerinden kaçının, özellikle hassas bireyler için risk oluşturabilir.';
+      healthMessage = 'Açık hava aktivitelerinden kaçının, özellikle hassas bireyler için risklidir.';
       break;
     case '3':
       airQualityDescription = 'Çok Kirli';
@@ -108,7 +150,7 @@ Widget build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Center(
               child: Column(
                 children: [
@@ -119,8 +161,9 @@ Widget build(BuildContext context) {
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
+                    
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   aqiValues.isNotEmpty
                       ? Text(
                           getAirQuality(0, aqiValues),
@@ -138,7 +181,43 @@ Widget build(BuildContext context) {
                             color: Colors.white,
                           ),
                         ),
-                  const SizedBox(height: 10),
+                        ElevatedButton(
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+       title: Text("${widget.city} AQI Detayları",style: TextStyle(fontSize: 24,fontWeight:FontWeight.w700 )),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("NO2: ${formatFirstValue('NO2')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+          Text("PM10: ${formatFirstValue('PM10')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+          Text("O3: ${formatFirstValue('O3')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+    Text("PM2.5: ${formatFirstValue('PM2.5')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+    Text("NO: ${formatFirstValue('NO')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+    Text("NH3: ${formatFirstValue('NH3')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+    Text("CO: ${formatFirstValue('CO')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+    Text("SO2: ${formatFirstValue('SO2')}",style: TextStyle(fontSize: 18,fontWeight:FontWeight.w600 ),),
+        ],
+
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Close",style: TextStyle(fontSize: 24,color: Colors.lightBlueAccent,fontWeight:FontWeight.w700 )),
+            ),
+          ],
+        );
+      },
+    );
+  },
+  child: Text("Show Details",style: TextStyle(color: Colors.lightBlueAccent,fontWeight:FontWeight.w600 ),),
+),
+
+                  const SizedBox(height: 5),
                   Text(
                     airQualityDescription,
                     style: const TextStyle(
@@ -150,7 +229,7 @@ Widget build(BuildContext context) {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(16),
@@ -181,7 +260,7 @@ Widget build(BuildContext context) {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               decoration: const BoxDecoration(
@@ -195,7 +274,7 @@ Widget build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    '10 Günlük Hava Tahmini',
+                    'Haftalık Hava Tahmini',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
