@@ -25,7 +25,7 @@ class _ForecastPageState extends State<ForecastPage> {
         });
       } else {
         _showErrorDialog('City not found or an error occurred.');
-      }
+         }
     } catch (e) {
       _showErrorDialog('An error occurred: $e');
     }
@@ -59,7 +59,7 @@ class _ForecastPageState extends State<ForecastPage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            TextField(
+             TextField(
               decoration: InputDecoration(hintText: 'Enter city name'),
               onSubmitted: (city) {
                 fetchForecast(city);

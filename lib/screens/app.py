@@ -1,15 +1,17 @@
 from flask import Flask, jsonify, request
 import pandas as pd
-import os
+
 # Flask uygulaması oluştur
 app = Flask(__name__)
 
-
-# Uygulama dizinini otomatik olarak bul
-current_dir = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(current_dir, 'forecast_results.csv')
-
-forecast_data = pd.read_csv(csv_path)
+# Tahmin sonuçlarını yükle
+forecast_data = pd.read_csv('forecast_results.csv')
+#tüm şehirleri döndürdüğüne inanıyoruz
+@app.route('/api/cities', methods=['GET'])
+def get_cities():
+    # Tüm benzersiz şehirleri al
+    cities = forecast_data['City'].unique().tolist()
+    return jsonify(cities)
 
 
 # Şehir adına göre tüm metriklerin tahminlerini döndüren endpoint

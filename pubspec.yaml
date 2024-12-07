@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.2 # En son sürümü almak için pub.dev'i kontrol edin
-
+  csv: ^5.0.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,8 +60,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

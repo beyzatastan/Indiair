@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indiair/screens/searchPage.dart';
+import 'package:indiair/screens/request.dart';
 
 class Airpage extends StatefulWidget {
   const Airpage({super.key});
@@ -178,7 +178,7 @@ class _AirpageState extends State<Airpage> {
                       // SearchPage'e yönlendirme
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) =>  SearchPage()),
+                        MaterialPageRoute(builder: (context) =>  ForecastPage()),
                       );
                     },
                     child: const Text('Arama'),
