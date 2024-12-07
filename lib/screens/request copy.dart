@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:indiair/screens/airPage.dart';
 import 'dart:convert';
 
 class ForecastPagee extends StatefulWidget {
@@ -10,8 +10,8 @@ class ForecastPagee extends StatefulWidget {
 
 class _ForecastPageState extends State<ForecastPagee> {
   Map<String, dynamic> forecasts = {};
-  List<String> cities = []; // Tüm şehirler burada saklanacak
-  List<String> filteredCities = []; // Arama filtresine uyan şehirler burada olacak
+  List<String> cities = [];
+  List<String> filteredCities = [];
   final TextEditingController _controller = TextEditingController();
 
   // Flask API'den şehirleri al
@@ -23,28 +23,10 @@ class _ForecastPageState extends State<ForecastPagee> {
         List<String> cityList = List<String>.from(json.decode(response.body));
         setState(() {
           cities = cityList;
-          filteredCities = cities; // Başlangıçta tüm şehirler filtrelenmiş olacak
+          filteredCities = cities;
         });
       } else {
         _showErrorDialog('Error fetching cities.');
-      }
-    } catch (e) {
-      _showErrorDialog('An error occurred: $e');
-    }
-  }
-
-  // Flask API'den hava durumu tahminlerini al
-  Future<void> fetchForecast(String city) async {
-    try {
-      final response = await http.get(Uri.parse('http://127.0.0.1:5000/api/forecast?city=$city'));
-
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = json.decode(response.body);
-        setState(() {
-          forecasts = data['forecasts'];
-        });
-      } else {
-        _showErrorDialog('City not found or an error occurred.');
       }
     } catch (e) {
       _showErrorDialog('An error occurred: $e');
@@ -81,6 +63,24 @@ class _ForecastPageState extends State<ForecastPagee> {
     );
   }
 
+  // Forecast verilerini şehire göre çek
+  Future<void> fetchForecast(String city) async {
+    try {
+      final response = await http.get(Uri.parse('http://127.0.0.1:5000/api/forecast?city=$city'));
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = json.decode(response.body);
+        setState(() {
+          forecasts = data['forecasts'];
+        });
+      } else {
+        _showErrorDialog('Error fetching forecast.');
+      }
+    } catch (e) {
+      _showErrorDialog('An error occurred: $e');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -97,13 +97,11 @@ class _ForecastPageState extends State<ForecastPagee> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            // Arama çubuğu
             TextField(
               controller: _controller,
               decoration: InputDecoration(hintText: 'Enter city name'),
               onChanged: _filterCities, // Arama her değiştiğinde çalışacak
             ),
-            // Şehirleri listele
             Expanded(
               child: filteredCities.isEmpty
                   ? Center(child: Text('No cities found'))
@@ -114,13 +112,21 @@ class _ForecastPageState extends State<ForecastPagee> {
                         return ListTile(
                           title: Text(city),
                           onTap: () {
-                            fetchForecast(city); // Şehire tıklandığında tahminleri al
+                            fetchForecast(city); // Şehri seçtikten sonra tahmin verisini çek
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Airpage(
+                                  city: city, 
+                                  forecasts: forecasts, 
+                                ),
+                              ),
+                            );
                           },
                         );
                       },
                     ),
             ),
-            // Forecast verisi varsa görüntüle
             if (forecasts.isNotEmpty)
               Expanded(
                 child: ListView(
