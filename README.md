@@ -57,7 +57,9 @@ A Flutter app that provides real-time air quality index (AQI) predictions and da
  ## Screenshots
 
 <img src="https://github.com/user-attachments/assets/858dd56f-c144-4a22-b419-679d53a681b9" width="300"/>
-<img src="https://github.com/user-attachments/assets/5cfcfc44-28cd-4c01-a37a-f44af049492a" width="300"/>
+<img src="https://github.com/user-attachments/assets/9fd026b6-d74d-49b5-b69e-81d875ae2918" width="300"/> <br>
+<img src="https://github.com/user-attachments/assets/8bcce6f8-c6e5-4999-9e34-aba560dd1d08" width="300"/>
+
 <br>
 
 <img src="https://github.com/user-attachments/assets/f02c2aec-d542-44c6-8a82-ca76b302b501" width="300"/>
