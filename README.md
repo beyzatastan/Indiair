@@ -7,7 +7,6 @@ A Flutter app that provides real-time air quality index (AQI) predictions and da
 ### - City Search and Air Quality Prediction
 - Search for any city in India to get real-time air quality data and forecasts.
 - View predictions for the upcoming days based on historical data and trained models.
-- Receive suggestions on which cities to avoid based on their current and predicted air quality.
 
 ### - Detailed Pollutant Information
 - View detailed readings for various pollutants:
@@ -57,12 +56,13 @@ A Flutter app that provides real-time air quality index (AQI) predictions and da
   
  ## Screenshots
 
+<img src="https://github.com/user-attachments/assets/858dd56f-c144-4a22-b419-679d53a681b9" width="300"/>
 <img src="https://github.com/user-attachments/assets/5cfcfc44-28cd-4c01-a37a-f44af049492a" width="300"/>
+<br>
 
 <img src="https://github.com/user-attachments/assets/f02c2aec-d542-44c6-8a82-ca76b302b501" width="300"/>
 
 <img src="(https://github.com/user-attachments/assets/fd621ab8-4789-42b6-9ef0-83b833bfbbb4" width="300"/>
 
-<img src="https://github.com/user-attachments/assets/858dd56f-c144-4a22-b419-679d53a681b9" width="300"/>
 
 
