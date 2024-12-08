@@ -37,18 +37,6 @@ A Flutter app that provides real-time air quality index (AQI) predictions and da
 - User-friendly design with simple navigation for city search and viewing air quality data.
 - Interactive charts to visualize pollutant levels and AQI predictions.
 
-## Screenshots
-<img src="https://github.com/user-attachments/assets/8270b3ad-b2aa-48a5-a49a-8309d68c06f4" width="300"/>
-
-<img src="https://github.com/user-attachments/assets/5cfcfc44-28cd-4c01-a37a-f44af049492a" width="300"/>
-
-<img src="https://github.com/user-attachments/assets/f02c2aec-d542-44c6-8a82-ca76b302b501" width="300"/>
-
-<img src="(https://github.com/user-attachments/assets/fd621ab8-4789-42b6-9ef0-83b833bfbbb4" width="300"/>
-
-<img src="https://github.com/user-attachments/assets/858dd56f-c144-4a22-b419-679d53a681b9" width="300"/>
-
-
 
 ## Example Data
 
@@ -66,3 +54,15 @@ A Flutter app that provides real-time air quality index (AQI) predictions and da
 - **NH3**: 20 µg/m³
 - **CO**: 0.55 ppm
 - **SO2**: 15 µg/m³
+  
+ ## Screenshots
+
+<img src="https://github.com/user-attachments/assets/5cfcfc44-28cd-4c01-a37a-f44af049492a" width="300"/>
+
+<img src="https://github.com/user-attachments/assets/f02c2aec-d542-44c6-8a82-ca76b302b501" width="300"/>
+
+<img src="(https://github.com/user-attachments/assets/fd621ab8-4789-42b6-9ef0-83b833bfbbb4" width="300"/>
+
+<img src="https://github.com/user-attachments/assets/858dd56f-c144-4a22-b419-679d53a681b9" width="300"/>
+
+
